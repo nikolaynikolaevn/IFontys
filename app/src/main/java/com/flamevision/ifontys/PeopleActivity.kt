@@ -1,5 +1,6 @@
 package com.flamevision.ifontys
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
@@ -13,7 +14,8 @@ class PeopleActivity : AppCompatActivity() {
         val schedule: Button = findViewById(R.id.schedule)
 
         schedule.setOnClickListener {
-
+            val scheduleIntent = Intent(this, ScheduleActivity::class.java)
+            startActivity(scheduleIntent)
         }
     }
 }
