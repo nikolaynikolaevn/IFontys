@@ -1,27 +1,69 @@
 package com.flamevision.ifontys
 
-import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
+import android.view.MenuItem
+import android.widget.TextView
+import android.widget.Toast
+import androidx.appcompat.app.ActionBarDrawerToggle
+import androidx.appcompat.widget.Toolbar
+import androidx.core.view.GravityCompat
+import androidx.drawerlayout.widget.DrawerLayout
+import androidx.fragment.app.Fragment
+import com.google.android.material.navigation.NavigationView
+import org.w3c.dom.Text
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+
+    lateinit var toolbar: Toolbar
+    lateinit var drawerLayout: DrawerLayout
+    lateinit var navView: NavigationView
+    private val defaultFragmentTitle = "Schedule"
+
+    lateinit var title: TextView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val schedule: Button = findViewById(R.id.main_schedule)
-        val people: Button = findViewById(R.id.main_people)
-        schedule.setOnClickListener {
-            val scheduleIntent = Intent(this, ScheduleActivity::class.java)
-            startActivity(scheduleIntent)
+        title = findViewById(R.id.fragment_title)
 
-        }
+        title.text = defaultFragmentTitle
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container, ScheduleFragment()).commit()
 
-        people.setOnClickListener {
-            val peopleIntent = Intent(this, PeopleActivity::class.java)
-            startActivity(peopleIntent)
+        toolbar = findViewById(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        drawerLayout = findViewById(R.id.drawer_layout)
+        navView = findViewById(R.id.nav_view)
+
+        val toggle = ActionBarDrawerToggle(
+            this, drawerLayout, toolbar, 0, 0
+        )
+        drawerLayout.addDrawerListener(toggle)
+        toggle.syncState()
+        navView.setNavigationItemSelectedListener(this)
+    }
+
+    override fun onNavigationItemSelected(item: MenuItem): Boolean {
+        val transaction = supportFragmentManager.beginTransaction()
+        val fragment: Fragment
+
+        when (item.itemId) {
+            R.id.nav_people -> {
+                fragment = PeopleFragment()
+                title.text = "People"
+            }
+            else -> {
+                fragment = ScheduleFragment()
+                title.text = defaultFragmentTitle
+            }
         }
+        transaction.replace(R.id.fragment_container, fragment)
+        transaction.addToBackStack(null)
+        transaction.commit()
+
+        drawerLayout.closeDrawer(GravityCompat.START)
+        return true
     }
 }
