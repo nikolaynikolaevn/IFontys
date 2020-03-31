@@ -16,7 +16,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
-    private val defaultFragmentTitle = "Schedule"
+    private lateinit var defaultFragmentTitle: String;
 
     lateinit var title: TextView
 
@@ -25,8 +25,9 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
 
         title = findViewById(R.id.fragment_title)
-
+        defaultFragmentTitle = getString(R.string.schedule)
         title.text = defaultFragmentTitle
+
         supportFragmentManager.beginTransaction().add(R.id.fragment_container, ScheduleFragment()).commit()
 
         toolbar = findViewById(R.id.toolbar)
@@ -50,7 +51,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         when (item.itemId) {
             R.id.nav_people -> {
                 fragment = PeopleFragment()
-                title.text = "People"
+                title.text = getString(R.string.people)
             }
             else -> {
                 fragment = ScheduleFragment()
