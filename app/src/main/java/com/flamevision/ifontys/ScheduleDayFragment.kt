@@ -22,7 +22,7 @@ class ScheduleDayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         arguments?.takeIf { it.containsKey(ARG_CLASSES) }?.apply {
-            val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_schedule_day_classes)
+            //val recyclerView: RecyclerView = view.findViewById(R.id.recycler_view_schedule_day_classes)
         }
     }
 
