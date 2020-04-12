@@ -10,13 +10,16 @@ import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
+import java.net.HttpURLConnection
+import java.net.URL
+import java.util.*
+import javax.net.ssl.HttpsURLConnection
 
 class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, TokenFragment.OnFragmentInteractionListener {
 
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
     lateinit var navView: NavigationView
-    private lateinit var defaultFragmentTitle: String;
 
     lateinit var title: TextView
 
@@ -65,7 +68,11 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
     }
 
     override fun onFragmentInteraction(token: String?) {
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ScheduleFragment()).commit() // Default fragment after login
+        val scheduleFragment = ScheduleFragment()
+        scheduleFragment.arguments = Bundle().apply {
+            putString("ARG_TOKEN", token)
+        }
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, scheduleFragment).commit() // Default fragment after login
         title.text = getString(R.string.schedule)
     }
 }
