@@ -11,7 +11,7 @@ import androidx.drawerlayout.widget.DrawerLayout
 import androidx.fragment.app.Fragment
 import com.google.android.material.navigation.NavigationView
 
-class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener {
+class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelectedListener, TokenFragment.OnFragmentInteractionListener {
 
     lateinit var toolbar: Toolbar
     lateinit var drawerLayout: DrawerLayout
@@ -25,10 +25,8 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
         setContentView(R.layout.activity_main)
 
         title = findViewById(R.id.fragment_title)
-        defaultFragmentTitle = getString(R.string.schedule)
-        title.text = defaultFragmentTitle
 
-        supportFragmentManager.beginTransaction().add(R.id.fragment_container, ScheduleFragment()).commit()
+        supportFragmentManager.beginTransaction().add(R.id.fragment_container, TokenFragment()).commit()
 
         toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -55,7 +53,7 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
             }
             else -> {
                 fragment = ScheduleFragment()
-                title.text = defaultFragmentTitle
+                title.text = getString(R.string.schedule)
             }
         }
         transaction.replace(R.id.fragment_container, fragment)
@@ -64,5 +62,10 @@ class MainActivity : AppCompatActivity(), NavigationView.OnNavigationItemSelecte
 
         drawerLayout.closeDrawer(GravityCompat.START)
         return true
+    }
+
+    override fun onFragmentInteraction(token: String?) {
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, ScheduleFragment()).commit() // Default fragment after login
+        title.text = getString(R.string.schedule)
     }
 }
