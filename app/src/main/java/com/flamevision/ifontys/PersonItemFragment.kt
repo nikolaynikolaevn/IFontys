@@ -8,32 +8,32 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 
-private const val ARG_CLASSES = "ARG_CLASSES"
+private const val ARG_PEOPLE = "ARG_PEOPLE"
 
-class ScheduleItemFragment : Fragment() {
+class PersonItemFragment : Fragment() {
 
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewAdapter: RecyclerView.Adapter<*>
     private lateinit var viewManager: RecyclerView.LayoutManager
-    private lateinit var classesData: ArrayList<CourseClass>
+    private lateinit var peopleData: ArrayList<Person>
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_schedule_item_list, container, false)
+        return inflater.inflate(R.layout.fragment_person_item_list, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        arguments?.takeIf { it.containsKey(ARG_CLASSES) }?.apply {
-            classesData = this.getParcelableArrayList<CourseClass>(ARG_CLASSES) as ArrayList<CourseClass>
+        arguments?.takeIf { it.containsKey(ARG_PEOPLE) }?.apply {
+            peopleData = this.getParcelableArrayList<CourseClass>(ARG_PEOPLE) as ArrayList<Person>
         }
         viewManager = LinearLayoutManager(activity)
-        viewAdapter = MyScheduleItemRecyclerViewAdapter(classesData)
+        viewAdapter = PersonItemRecyclerViewAdapter(peopleData)
 
-        recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_schedule_day_classes).apply {
+        recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_people).apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
@@ -42,10 +42,10 @@ class ScheduleItemFragment : Fragment() {
 
     companion object {
         @JvmStatic
-        fun newInstance(classes: ArrayList<CourseClass>) =
-            ScheduleItemFragment().apply {
+        fun newInstance(people: ArrayList<Person>) =
+            PersonItemFragment().apply {
                 arguments = Bundle().apply {
-                    putParcelableArrayList(ARG_CLASSES, classes)
+                    putParcelableArrayList(ARG_PEOPLE, people)
                 }
             }
     }

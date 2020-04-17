@@ -1,7 +1,11 @@
 package com.flamevision.ifontys
 
-import java.util.Date
+import android.os.Parcelable
+import kotlinx.android.parcel.Parcelize
 
-data class CourseClass (val className: String, val startTime: Date, val endTime: Date, val teacherName: String, val place: String) {
-    val classInfo = "$place | $startTime | $endTime | $teacherName"
+@Parcelize
+data class CourseClass (val className: String, val classDescription : String, val classDate : String,
+                        val startTime: String, val endTime: String, val teacherAbr: String, val place: String) :
+    Parcelable {
+    val classInfo = "$classDescription | $place | $startTime | $endTime | $teacherAbr"
 }

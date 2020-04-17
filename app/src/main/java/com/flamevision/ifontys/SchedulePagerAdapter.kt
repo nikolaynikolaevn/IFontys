@@ -5,16 +5,13 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 
-class SchedulePagerAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
+class SchedulePagerAdapter(fm: FragmentManager, private val classes: Array<ArrayList<CourseClass>>) :
+    FragmentStatePagerAdapter(fm) {
 
     override fun getCount(): Int  = 5
 
     override fun getItem(i: Int): Fragment {
-        val fragment = ScheduleDayFragment()
-        fragment.arguments = Bundle().apply {
-            putSerializable("ARG_CLASSES", null)
-        }
-        return fragment
+        return ScheduleItemFragment.newInstance(classes[i])
     }
 
     override fun getPageTitle(position: Int): CharSequence {
