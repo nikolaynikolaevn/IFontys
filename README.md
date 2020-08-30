@@ -1,1 +1,2 @@
-# Fontys Android client
+# IFontys
+Prototype of Fontys Android client
