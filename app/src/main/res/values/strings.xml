@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">IFontys</string>
+    <string name="name">Name</string>
+    <string name="pcn">PCN</string>
+    <string name="schedule">Schedule</string>
+    <string name="people">People</string>
+    <string name="tab_text_monday">Monday</string>
+    <string name="tab_text_tuesday">Tuesday</string>
+    <string name="tab_text_wednesday">Wednesday</string>
+    <string name="tab_text_thursday">Thursday</string>
+    <string name="tab_text_friday">Friday</string>
 </resources>
